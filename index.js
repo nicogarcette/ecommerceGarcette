@@ -95,6 +95,7 @@ function subtotal(lista) {
 // funcionalidad del boton limpiar carrito
 const limpiarCarrito=()=>{
     listaCompra.GetCarrito().splice(0, listaCompra.GetCarrito().length);
+    resetItem();
     bodyCarrito.innerHTML= `<p>Carrito vacio</p>`;
     localStorage.removeItem("carrito");
 }
@@ -205,6 +206,7 @@ const cargarProductos= async ()=>{
             let monto=subtotal(listaCompra.GetCarrito());   
              // CARGO EL STORAGE
             cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
+            contItem();
             alertAdd();
         })
 
@@ -283,6 +285,15 @@ const cargarModal=(lista,nodo,monto)=>{
 
     lista.length!=0 && crearModal(lista,nodo,monto);
 };
+const contItem=()=>{
+    const itemTotal= document.getElementById("item_total");
+    itemTotal.innerHTML++;
+}
+
+const resetItem=()=>{
+    const itemTotal= document.getElementById("item_total");
+    itemTotal.innerHTML=0;
+}
 
 //                               ----------------------------Programa-------------------------------------
 
@@ -298,5 +309,6 @@ botonPagar();
 agregarBtnCarrito();
 
 btnBorrar("limpiar");
+
 
 

@@ -67,6 +67,28 @@ li{
     color: #B20600;
 }
 
+.cart{
+    position: relative;
+    cursor: pointer;
+}
+header .cart span{
+    position:absolute ;
+    top: 0.6rem;
+    right: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid #B20600;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2rem;
+    background-color: #B20600;
+    padding: 0px;
+
+}
+
 
 /* main */
 .cuerpo{
@@ -227,7 +249,7 @@ span{
     border: none;
     background-color: #06113C;
     color: #DDDDDD;
-    font-size: 22px;
+    font-size: 25px;
     border-radius: 5px;
     text-decoration: none
 
