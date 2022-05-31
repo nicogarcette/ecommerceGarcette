@@ -1,0 +1,280 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+}
+
+body{
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    overflow-x: hidden;
+}
+header{
+    grid-area: header;
+}
+main{
+    grid-area: main;
+}
+
+footer{
+    grid-area: footer;
+    background-color: #DBE2EF;
+}
+
+/* HEADER */
+.encabezado{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #06113C;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+.nav{
+    display:flex;
+    align-items: center;
+}
+.img-px{
+    width: 150px;
+    padding: 1rem;
+}
+
+.lista{
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+li{
+    list-style: none;
+}
+
+.lis_item a{
+    text-decoration: none;
+    color: #DDDDDD;
+    padding: 5px;
+    font-size: 20px;
+    transition: color 0.5s;
+}
+.lis_item a:hover, .redes a:hover{
+    color: #B20600;
+}
+
+
+/* main */
+.cuerpo{
+    background-color: #DDDDDD;
+}
+.titulo{
+    text-align: center;
+    margin: 2rem;
+    font-size: 22px;
+    color: #B20600;
+}
+#temporada{
+    display: flex; 
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5rem;
+}
+.card{
+    background-color: #EEEEEE;
+    width: auto;
+    border-radius: 20px;
+    padding: 1rem 0;
+    transition: all .5s ease;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+}
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.card-img{
+    width: 350px;
+}
+.card h2, .compra h2, .compra p{
+    text-align: center;
+    padding-bottom: 5px;
+}
+.p-size{
+    font-size: 1.4rem;
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;    
+}
+
+
+/* footer */
+.ft{
+    padding: 10px 0;
+
+}
+.pie{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.redes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    
+}
+.redes a{
+    text-decoration: none;
+    padding: 5px;
+    color: #06113C;
+}
+.derechos{
+    padding:20px;
+    margin: auto ;
+    text-align: center;
+    max-width: 1200px;
+}
+.derechos p{
+    margin-top: 20px;
+}
+
+.derechos hr{
+    border: none;
+    height: 1px;
+    background-color: #7a7a7a;
+
+}
+
+/* asistencia */
+.compra{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+}
+
+.compra_card{
+    background-color: #EEEEEE;
+    width: 400px;
+    border-radius: 20px;
+    padding: 1rem 0;
+    transition: all .5s ease;
+}
+
+span{
+    color: #B20600;
+    font-weight: bold;
+}
+
+
+/* talles */
+
+.talles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+.talles_card{
+    background-color: #EEEEEE;
+    width: auto;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+    transition: all .5s ease;
+    
+}
+
+
+/* login */
+.formu{
+    width: 400px;
+    background-color: #EEEEEE;
+    border-radius: 20px;
+    padding: 1rem;
+    margin-left: 760px;
+    /* provisorio */
+    margin-bottom: 20rem;
+}
+.titulo-form{
+    text-align: center;
+    padding-bottom: 2rem;
+}
+.label{
+    display: flex;
+    flex-direction:column ;
+}
+.btn{
+    padding: 0.3rem 4rem;
+    margin: 1rem;
+    border: none;
+    background-color: #B20600;
+    color: #DDDDDD;
+    font-size: 18px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.btn-carrito{
+    padding: 0.3rem;
+    margin: 1rem;
+    border: none;
+    background-color: #06113C;
+    color: #DDDDDD;
+    font-size: 22px;
+    border-radius: 5px;
+    text-decoration: none
+
+}
+input{
+    height: 2.5rem;
+    border-radius: 10px;
+}
+
+table{
+    text-align: center;
+    margin:2rem auto ;
+}
+
+
+.btn:hover{
+    color: #06113C;
+}
+.btn-carrito:hover{
+    color: #B20600;
+}
+
+
+.bienvenida{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tabla{
+    display: flex;
+    flex-direction: column;
+}
+#botones, #total{
+    display: flex;
+    justify-content: center;
+    margin:2rem auto ;
+}
+
+
+.modal-img{
+    width: 100%;
+}
