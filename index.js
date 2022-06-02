@@ -96,7 +96,7 @@ function subtotal(lista) {
 const limpiarCarrito=()=>{
     listaCompra.GetCarrito().splice(0, listaCompra.GetCarrito().length);
     resetItem();
-    bodyCarrito.innerHTML= `<p>Carrito vacio</p>`;
+    bodyCarrito.innerHTML= `<p class="p-size">Carrito vacio</p>`;
     localStorage.removeItem("carrito");
 }
 
@@ -206,14 +206,11 @@ const cargarProductos= async ()=>{
             let monto=subtotal(listaCompra.GetCarrito());   
              // CARGO EL STORAGE
             cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
-            contItem();
             alertAdd();
+            contItem();
         })
 
     })
-
-
-
 }
 
 // crea tabla del modal
@@ -277,7 +274,6 @@ const agregarBtnCarrito=()=>{
 
         cargarModal(listaCompra.GetCarrito(),bodyCarrito,subtotal(listaCompra.GetCarrito()));
         calcularPago();
-
     })
 }
 // carga carrito si se hay producto localstorage
@@ -287,9 +283,9 @@ const cargarModal=(lista,nodo,monto)=>{
 };
 const contItem=()=>{
     const itemTotal= document.getElementById("item_total");
-    itemTotal.innerHTML++;
+    let cant=listaCompra.GetCarrito().reduce((acumulador,x)=>acumulador+x.cantidad,0)
+    itemTotal.innerHTML=cant;
 }
-
 const resetItem=()=>{
     const itemTotal= document.getElementById("item_total");
     itemTotal.innerHTML=0;
@@ -305,6 +301,8 @@ cargarProductos();
 obtenerStorage();
 
 botonPagar();
+
+contItem();
 
 agregarBtnCarrito();
 

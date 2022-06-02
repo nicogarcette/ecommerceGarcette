@@ -37,6 +37,16 @@ footer{
     width: 100%;
     z-index: 1000;
 }
+.ezpe{
+    font-family: 'Cutive Mono', monospace;
+    font-size: 2.7rem;
+    font-weight: 600;
+    color: #DDDDDD ;
+    margin: 0.5rem;
+    text-align: center;
+
+
+}
 .nav{
     display:flex;
     align-items: center;
@@ -73,8 +83,8 @@ li{
 }
 header .cart span{
     position:absolute ;
-    top: 0.6rem;
-    right: 0.5rem;
+    top: -0.4rem;
+    right: -0.5rem;
     width: 1.5rem;
     height: 1.5rem;
     border: 1px solid #B20600;
@@ -97,6 +107,7 @@ header .cart span{
 .titulo{
     text-align: center;
     margin: 2rem;
+    margin-top: 7rem;
     font-size: 22px;
     color: #B20600;
 }
@@ -104,7 +115,8 @@ header .cart span{
     display: flex; 
     justify-content: space-evenly;
     align-items: center;
-    padding: 5rem;
+    padding-bottom: 5rem;
+    padding-top: 2rem;
 }
 .card{
     background-color: #EEEEEE;
@@ -114,15 +126,16 @@ header .cart span{
     transition: all .5s ease;
     display: flex;
     flex-direction: column;
-    margin: 0.5rem 0;
+    margin: 1rem;
 }
 .card:hover{
     transform: scale(1.05);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
 }
-.card-img{
+/* .card-img{
     width: 350px;
-}
+} */
 .card h2, .compra h2, .compra p{
     text-align: center;
     padding-bottom: 5px;
@@ -245,7 +258,6 @@ span{
 }
 .btn-carrito{
     padding: 0.3rem;
-    margin: 1rem;
     border: none;
     background-color: #06113C;
     color: #DDDDDD;
@@ -299,4 +311,37 @@ table{
 
 .modal-img{
     width: 100%;
+}
+
+
+@media screen and (max-width:768px){
+
+    .titulo{
+        margin-top: 8rem;
+        
+    }
+    #temporada{
+        padding: 0px 4rem;
+
+    }
+    .card-img{
+        width: 100%;
+    }
+
+    
+}
+
+@media screen and (min-width:1024px){
+
+    .titulo{
+        margin-top: 7rem;
+        
+    }
+
+    .card-img{
+        width: 350px;
+    }
+
+
+    
 }
