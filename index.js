@@ -98,9 +98,10 @@ const limpiarCarrito=()=>{
     resetItem();
     bodyCarrito.innerHTML= `<p class="p-size">Carrito vacio</p>`;
     localStorage.removeItem("carrito");
+    quitarBtnModal();
 }
-
-const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>limpiarCarrito())
+// boton que llama a la funcion limpiar carrito
+const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>limpiarCarrito());
 
 // cargar al localStore
 const cargarStorage=(clave,valor)=>{
@@ -119,22 +120,6 @@ const obtenerStorage=()=>{
         })
     }
 }
-
-// funcion concretar pago
-const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
-
-    limpiarCarrito();
-    let mensaje= document.getElementById("total");
-    
-    Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Compra realizada. Gracias',
-        showConfirmButton: false,
-        timer: 2000
-      })
-
-})
 
 // alerta cuando se agrega un producto
 const alertAdd=()=>{
@@ -196,17 +181,27 @@ const cargarProductos= async ()=>{
             if (listaCompra.GetCarrito().find(zapatilla=>zapatilla.id===element.id)) {
         
                 let index=listaCompra.GetCarrito().findIndex(zapatilla=>zapatilla.id===element.id);
-                listaCompra.GetCarrito()[index].cantidad++;
 
+                if (listaCompra.GetCarrito()[index].cantidad<element.stock) {
+                    listaCompra.GetCarrito()[index].cantidad++;
+                    alertAdd();
+                }else{
+                    Swal.fire({
+                        position: 'top',
+                        title: 'Sin stock',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             }else{
                 let producto = new zapatilla(element.id,element.marca,element.modelo,element.precio,element.img)
                 listaCompra.AddProducto(producto);
+                alertAdd();
             }
 
             let monto=subtotal(listaCompra.GetCarrito());   
              // CARGO EL STORAGE
             cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
-            alertAdd();
             contItem();
         })
 
@@ -260,8 +255,23 @@ const crearModal=(lista,nodo,total)=>{
                 </div>`
 
     nodo.innerHTML=acumulador;
-
+    agregarBtnModal();
 }
+// funcion concretar pago
+const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
+
+    limpiarCarrito();
+    let mensaje= document.getElementById("total");
+    
+    Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Compra realizada. Gracias',
+        showConfirmButton: false,
+        timer: 2000
+      })
+
+})
 
 // funcionalidad al boton carrito
 const agregarBtnCarrito=()=>{
@@ -273,7 +283,9 @@ const agregarBtnCarrito=()=>{
     botonCarrito.addEventListener("click",()=>{
 
         cargarModal(listaCompra.GetCarrito(),bodyCarrito,subtotal(listaCompra.GetCarrito()));
-        calcularPago();
+        
+        listaCompra.GetCarrito().length!=0 && calcularPago();
+        
     })
 }
 // carga carrito si se hay producto localstorage
@@ -281,6 +293,25 @@ const cargarModal=(lista,nodo,monto)=>{
 
     lista.length!=0 && crearModal(lista,nodo,monto);
 };
+// agrega los botones de pago y limpiar carrito, cuando hay algo en el carrito
+const agregarBtnModal=()=>{
+    let btnModal=document.getElementById("btnModal");
+
+    btnModal.innerHTML=`<button id="pagar" type="button" class="btn" data-bs-dismiss="modal">Pagar</button>
+                        <button id="limpiar" type="button" class="btn">Vaciar carrito</button>
+    `;
+
+    botonPagar();
+    btnBorrar("limpiar");
+
+}
+
+// si no hay nada en el carrito, quita los botones
+const quitarBtnModal=()=>{
+    let btnModal=document.getElementById("btnModal");
+    btnModal.innerHTML="";
+}
+
 const contItem=()=>{
     const itemTotal= document.getElementById("item_total");
     let cant=listaCompra.GetCarrito().reduce((acumulador,x)=>acumulador+x.cantidad,0)
@@ -300,13 +331,7 @@ cargarProductos();
 
 obtenerStorage();
 
-botonPagar();
-
 contItem();
 
 agregarBtnCarrito();
-
-btnBorrar("limpiar");
-
-
 

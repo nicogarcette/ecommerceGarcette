@@ -1,12 +1,12 @@
 [
-    {"id":1,"marca":"nike","modelo":"ishod","precio":1400,"img":"nike-ishod.png","descripcion":"skate","stock":"10"},
-    {"id":2,"marca":"new balance","modelo":"550","precio":1500,"img":"nb-550.png","descripcion":"skate","stock":"10"},
-    {"id":3,"marca":"nike","modelo":"dunk","precio":1800,"img":"nike-dunk.png","descripcion":"skate","stock":"10"},
-    {"id":4,"marca":"asics","modelo":"patriot","precio":1200,"img":"asics.png","descripcion":"skate","stock":"10"},
-    {"id":5,"marca":"adidas","modelo":"messi2014","precio":3000,"img":"adidas-messi2014.png","descripcion":"skate","stock":"10"},
-    {"id":6,"marca":"adidas","modelo":"forum","precio":2000,"img":"adidas-forum.png","descripcion":"skate","stock":"10"},
-    {"id":7,"marca":"topper","modelo":"todoTerreno","precio":900,"img":"toper.png","descripcion":"la mejor","stock":"10"},
-    {"id":8,"marca":"puma","modelo":"diegote","precio":3000,"img":"puma.png","descripcion":"futbol","stock":"10"}
+    {"id":1,"marca":"nike","modelo":"ishod","precio":1400,"img":"nike-ishod.png","descripcion":"skate","stock":10},
+    {"id":2,"marca":"new balance","modelo":"550","precio":1500,"img":"nb-550.png","descripcion":"skate","stock":10},
+    {"id":3,"marca":"nike","modelo":"dunk","precio":1800,"img":"nike-dunk.png","descripcion":"skate","stock":10},
+    {"id":4,"marca":"asics","modelo":"patriot","precio":1200,"img":"asics.png","descripcion":"skate","stock":10},
+    {"id":5,"marca":"adidas","modelo":"messi2014","precio":3000,"img":"adidas-messi2014.png","descripcion":"skate","stock":10},
+    {"id":6,"marca":"adidas","modelo":"forum","precio":2000,"img":"adidas-forum.png","descripcion":"skate","stock":10},
+    {"id":7,"marca":"topper","modelo":"todoTerreno","precio":900,"img":"toper.png","descripcion":"la mejor","stock":10},
+    {"id":8,"marca":"puma","modelo":"diegote","precio":3000,"img":"puma.png","descripcion":"futbol","stock":10}
 
 
 ]
