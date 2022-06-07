@@ -8,10 +8,6 @@ class zapatilla{
         this.img=img;
     }
 
-    imprimirIndumentaria(){
-        return `Marca: ${this.marca}.\nModelo: ${this.modelo}.\nPrecio: $${this.precio}.`;
-    }
-
 }
 
 class Carrito{
@@ -28,9 +24,6 @@ class Carrito{
     AddProducto(zapatilla){
 
         this.carrito.push({...zapatilla,cantidad:1});
-
-        console.log(this.carrito);
-
     }
 
     RemoveProducto(prenda){
@@ -52,8 +45,33 @@ class Carrito{
             listaCompra.splice(index,1);
         }
     }
-    
 
+    RemoverItem(posicion){
+        this.carrito.splice(posicion,1);
+    }
+    // funcionalidad del boton limpiar carrito
+    //  preguntar si las funciones dentro del metodo van adentro de la clase
+    LimpiarCarrito(){
+
+        this.carrito.splice(0, this.carrito.length);
+        
+        limpiarModal();
+        localStorage.removeItem("carrito");
+    }
+
+    // sumador de subtotales
+    Subtotal(){
+        let aux=this.carrito.reduce((acumulador, x)=>acumulador+(x.precio*x.cantidad),0);
+        return aux;
+    }
+
+}
+
+const limpiarModal=()=>{
+    let bodyCarrito=document.getElementById("bodyCarrito");
+    bodyCarrito.innerHTML= `<p class="p-size">Carrito vacio</p>`;
+    quitarBtnModal();
+    resetItem();
 }
 
 // consulta metodo de pago
@@ -86,22 +104,8 @@ function metodoPago(precio,metodo) {
     }
 }
 
-// sumador de subtotales
-function subtotal(lista) {
-    let aux=lista.reduce((acumulador, x)=>acumulador+(x.precio*x.cantidad),0);
-    return aux;
-}
-
-// funcionalidad del boton limpiar carrito
-const limpiarCarrito=()=>{
-    listaCompra.GetCarrito().splice(0, listaCompra.GetCarrito().length);
-    resetItem();
-    bodyCarrito.innerHTML= `<p class="p-size">Carrito vacio</p>`;
-    localStorage.removeItem("carrito");
-    quitarBtnModal();
-}
 // boton que llama a la funcion limpiar carrito
-const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>limpiarCarrito());
+const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>listaCompra.LimpiarCarrito());
 
 // cargar al localStore
 const cargarStorage=(clave,valor)=>{
@@ -115,10 +119,11 @@ const obtenerStorage=()=>{
     
         let listAux=JSON.parse(localStorage.getItem("carrito"));
         listAux.forEach((ele)=>{
-            console.log(ele);
             listaCompra.GetCarrito().push(ele);
         })
     }
+    contItem();
+
 }
 
 // alerta cuando se agrega un producto
@@ -141,12 +146,8 @@ const calcularPago=()=>{
     opcion.addEventListener("change",(opc)=>{
 
         let metodo=opc.target.value;
-        console.log(metodo);
-
-
-        // let selectedOpcion = this.options[opcion.selectedIndex];
-        // let metodo=selectedOpcion.text;
-        let monto=subtotal(listaCompra.GetCarrito());
+     
+        let monto=listaCompra.Subtotal();
     
         metodoPago(Math.floor(monto),metodo); 
     });
@@ -199,35 +200,38 @@ const cargarProductos= async ()=>{
                 alertAdd();
             }
 
-            let monto=subtotal(listaCompra.GetCarrito());   
-             // CARGO EL STORAGE
+            console.log(listaCompra.GetCarrito());
+            // CARGO EL STORAGE
             cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
             contItem();
         })
-
     })
+
+   
 }
 
 // crea tabla del modal
+// puede ir en class ui
 const crearModal=(lista,nodo,total)=>{
     nodo.innerHTML="";
     let acumulador=`<table class="table table-striped table-hover">
                         <tr>
-                            <th>foto</th> 
-                            <th>Prenda</th>
-                            <th>Cantidad</th>
+                            <th>Producto</th> 
                             <th>Precio</th>
+                            <th>Cantidad</th>
                             <th>SubTotal</th>
+                            <td></td>
                         </tr>`
 
     lista.forEach((element)=>{
         acumulador+=
         ` <tr>
-                <td><img class="modal-img" src="./img/${element.img}"></td>
-                <td>${element.marca} ${element.modelo}</td>
-                <td>${element.cantidad}</td>
+                <td><img class="modal-img" src="./img/${element.img}">${element.marca} ${element.modelo}</td>
                 <td>$${element.precio}</td>
+                <td>${element.cantidad}</td>
                 <td>$${element.precio*element.cantidad}</td>
+                <td><a id="trash${element.id}" type="button"><i class="fa-solid fa-trash-can trash"></i></a></td>
+
             </tr> `;
 
 
@@ -237,8 +241,8 @@ const crearModal=(lista,nodo,total)=>{
                     <td>TOTAL</td>
                     <td>---</td>
                     <td>---</td>
-                    <td>---</td>
                     <td>$${total}</td>
+                    <td></td>
                 </tr>
         </table>
         <form id="formulario" class="">
@@ -256,12 +260,13 @@ const crearModal=(lista,nodo,total)=>{
 
     nodo.innerHTML=acumulador;
     agregarBtnModal();
+    botonBasura();
+
 }
 // funcion concretar pago
 const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
 
-    limpiarCarrito();
-    let mensaje= document.getElementById("total");
+    listaCompra.LimpiarCarrito();
     
     Swal.fire({
         position: 'top',
@@ -282,16 +287,17 @@ const agregarBtnCarrito=()=>{
 
     botonCarrito.addEventListener("click",()=>{
 
-        cargarModal(listaCompra.GetCarrito(),bodyCarrito,subtotal(listaCompra.GetCarrito()));
+        cargarModal(listaCompra.GetCarrito(),bodyCarrito,listaCompra.Subtotal());
         
-        listaCompra.GetCarrito().length!=0 && calcularPago();
         
     })
 }
 // carga carrito si se hay producto localstorage
 const cargarModal=(lista,nodo,monto)=>{
-
-    lista.length!=0 && crearModal(lista,nodo,monto);
+    if (lista.length!=0) {
+        crearModal(lista,nodo,monto)
+        calcularPago();
+    }
 };
 // agrega los botones de pago y limpiar carrito, cuando hay algo en el carrito
 const agregarBtnModal=()=>{
@@ -305,13 +311,38 @@ const agregarBtnModal=()=>{
     btnBorrar("limpiar");
 
 }
+// boton basura. elimina un toda la cantidad de un producto.
+const botonBasura=()=>{
 
+    listaCompra.GetCarrito().forEach((element) => {
+
+        document.getElementById(`trash${element.id}`).addEventListener("click",()=>{
+
+            let posicion=listaCompra.GetCarrito().indexOf(element);
+            listaCompra.RemoverItem(posicion);
+            
+            limpiarModal();
+            localStorage.removeItem("carrito");
+
+            cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
+        
+            let bodyCarrito=document.getElementById("bodyCarrito");
+            cargarModal(listaCompra.GetCarrito(),bodyCarrito,listaCompra.Subtotal());
+            
+            contItem();
+        })
+        
+    });
+
+
+}
 // si no hay nada en el carrito, quita los botones
 const quitarBtnModal=()=>{
     let btnModal=document.getElementById("btnModal");
     btnModal.innerHTML="";
 }
 
+// contador del carrito
 const contItem=()=>{
     const itemTotal= document.getElementById("item_total");
     let cant=listaCompra.GetCarrito().reduce((acumulador,x)=>acumulador+x.cantidad,0)
@@ -331,7 +362,7 @@ cargarProductos();
 
 obtenerStorage();
 
-contItem();
-
 agregarBtnCarrito();
+
+
 

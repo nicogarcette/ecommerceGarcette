@@ -6,7 +6,13 @@
     {"id":5,"marca":"adidas","modelo":"messi2014","precio":3000,"img":"adidas-messi2014.png","descripcion":"skate","stock":10},
     {"id":6,"marca":"adidas","modelo":"forum","precio":2000,"img":"adidas-forum.png","descripcion":"skate","stock":10},
     {"id":7,"marca":"topper","modelo":"todoTerreno","precio":900,"img":"toper.png","descripcion":"la mejor","stock":10},
-    {"id":8,"marca":"puma","modelo":"diegote","precio":3000,"img":"puma.png","descripcion":"futbol","stock":10}
+    {"id":8,"marca":"puma","modelo":"diegote","precio":3000,"img":"puma.png","descripcion":"futbol","stock":10},
+    {"id":9,"marca":"jordan","modelo":"3","precio":3000,"img":"j3.jpg","descripcion":"futbol","stock":10},
+    {"id":10,"marca":"nike","modelo":"airmax1","precio":3000,"img":"travis.jpg","descripcion":"futbol","stock":10},
+    {"id":11,"marca":"adidas","modelo":"yezzy","precio":3000,"img":"yezzy.jpg","descripcion":"futbol","stock":10},
+    {"id":12,"marca":"jordan","modelo":"5","precio":3000,"img":"j5.jpg","descripcion":"futbol","stock":10}
+
+
 
 
 ]

@@ -353,3 +353,13 @@ table{
 
     
 }
+
+
+.trash{
+    font-size: 25px;
+    color: #B20600;
+}
+
+.trash:hover{
+    opacity:.5;
+}
