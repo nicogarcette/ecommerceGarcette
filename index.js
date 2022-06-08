@@ -1,11 +1,12 @@
 class zapatilla{
-    constructor(id,marca,modelo,precio,img){
+    constructor(id,marca,modelo,precio,img,stock){
 
         this.id=id;
         this.marca=marca;
         this.modelo=modelo;
         this.precio=precio;
         this.img=img;
+        this.stock=stock;
     }
 
 }
@@ -195,7 +196,7 @@ const cargarProductos= async ()=>{
                     })
                 }
             }else{
-                let producto = new zapatilla(element.id,element.marca,element.modelo,element.precio,element.img)
+                let producto = new zapatilla(element.id,element.marca,element.modelo,element.precio,element.img,element.stock)
                 listaCompra.AddProducto(producto);
                 alertAdd();
             }
@@ -228,8 +229,14 @@ const crearModal=(lista,nodo,total)=>{
         ` <tr>
                 <td><img class="modal-img" src="./img/${element.img}">${element.marca} ${element.modelo}</td>
                 <td>$${element.precio}</td>
-                <td>${element.cantidad}</td>
-                <td>$${element.precio*element.cantidad}</td>
+                <td>
+                    <p id="cant${element.id}">${element.cantidad}</p>
+                    <div>
+                        <a id="btn_sumar${element.id}" class="masmenos" type="button"><i class="fa-solid fa-circle-plus"></i></a>
+                        <a id="btn_restar${element.id}" class="masmenos" type="button"><i class="fa-solid fa-circle-minus"></i></a>
+                    </div>
+                </td>
+                <td id="sbTotal${element.id}">$${element.precio*element.cantidad}</td>
                 <td><a id="trash${element.id}" type="button"><i class="fa-solid fa-trash-can trash"></i></a></td>
 
             </tr> `;
@@ -241,7 +248,7 @@ const crearModal=(lista,nodo,total)=>{
                     <td>TOTAL</td>
                     <td>---</td>
                     <td>---</td>
-                    <td>$${total}</td>
+                    <td id="mdTotal">$${total}</td>
                     <td></td>
                 </tr>
         </table>
@@ -261,6 +268,7 @@ const crearModal=(lista,nodo,total)=>{
     nodo.innerHTML=acumulador;
     agregarBtnModal();
     botonBasura();
+    botonSumaResta();
 
 }
 // funcion concretar pago
@@ -322,8 +330,7 @@ const botonBasura=()=>{
             listaCompra.RemoverItem(posicion);
             
             limpiarModal();
-            localStorage.removeItem("carrito");
-
+        
             cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
         
             let bodyCarrito=document.getElementById("bodyCarrito");
@@ -331,11 +338,65 @@ const botonBasura=()=>{
             
             contItem();
         })
-        
+
     });
 
 
 }
+// suma y resta productos del modal
+const botonSumaResta=()=>{
+
+    listaCompra.GetCarrito().forEach((element)=>{
+
+        document.getElementById(`btn_sumar${element.id}`)?.addEventListener("click",()=>{
+    
+            let index=listaCompra.GetCarrito().indexOf(element);
+        
+            if (element.cantidad<element.stock) {
+                listaCompra.GetCarrito()[index].cantidad++;
+            }else{
+                Swal.fire({
+                    position: 'top',
+                    title: 'Sin stock',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            
+            modalDom(element.id,element.precio,element.cantidad);
+          
+        });
+
+        document.getElementById(`btn_restar${element.id}`)?.addEventListener("click",()=>{
+    
+            let index=listaCompra.GetCarrito().indexOf(element);
+        
+            if (element.cantidad<=element.stock && element.cantidad>1) {
+                listaCompra.GetCarrito()[index].cantidad--;
+            }
+            
+            modalDom(element.id,element.precio,element.cantidad);
+    
+        });    
+    })
+}
+
+// modifica valores del modal
+const modalDom=(id,precio,cantidad)=>{
+
+    let cantidadProductos=document.getElementById(`cant${id}`);
+    cantidadProductos.innerText=cantidad;
+
+    let sbtotal=document.getElementById(`sbTotal${id}`);
+    sbtotal.innerText="$"+cantidad*precio;
+
+    let mdTotal=document.getElementById("mdTotal");
+    mdTotal.innerText="$"+listaCompra.Subtotal();
+
+    contItem();
+    cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
+}
+
 // si no hay nada en el carrito, quita los botones
 const quitarBtnModal=()=>{
     let btnModal=document.getElementById("btnModal");
@@ -363,6 +424,8 @@ cargarProductos();
 obtenerStorage();
 
 agregarBtnCarrito();
+
+
 
 
 

@@ -267,6 +267,7 @@ span{
     text-decoration: none
 
 }
+
 input{
     height: 2.5rem;
     border-radius: 10px;
@@ -359,7 +360,12 @@ table{
     font-size: 25px;
     color: #B20600;
 }
+.masmenos{
+    color: #B20600;
+    font-size: 18px;
+}
 
-.trash:hover{
+.trash:hover,.masmenos:hover{
     opacity:.5;
+    color: #B20600;
 }
