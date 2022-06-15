@@ -288,9 +288,7 @@ input{
 
 table{
     text-align: center;
-    margin:2rem auto ;
 }
-
 
 .btn:hover{
     color: #06113C;
@@ -314,10 +312,6 @@ table{
     align-items: center;
 }
 
-#tabla{
-    display: flex;
-    flex-direction: column;
-}
 #botones, #total{
     display: flex;
     justify-content: center;

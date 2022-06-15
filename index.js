@@ -67,6 +67,51 @@ class Carrito{
     }
 
 }
+// consulta al json y carga productos dinamicamente 
+const cargarProductos= async ()=>{
+
+    const response = await fetch("./productos.json");
+    let data= await response.json();
+    
+    data.forEach((element)=>{
+        let allcards=document.getElementById("allcards");
+        
+        allcards.innerHTML+=    `<div class="card col-lg-4 col-12">
+                                <h2>${element.marca} ${element.modelo}</h2>         
+                                <img class="card-img" src="img/${element.img}" alt="zapatilla">
+                                <p class="p-size">$${element.precio}</p>
+                                <button id="btn-zapatilla${element.id}" class="btn">Agregar</button>
+                            </div>`;
+    
+    })
+
+    data.forEach((element)=>{
+        document.getElementById(`btn-zapatilla${element.id}`)?.addEventListener("click",()=>{
+
+            if (listaCompra.GetCarrito().find(zapatilla=>zapatilla.id===element.id)) {
+        
+                let index=listaCompra.GetCarrito().findIndex(zapatilla=>zapatilla.id===element.id);
+
+                if (listaCompra.GetCarrito()[index].cantidad<element.stock) {
+                    listaCompra.GetCarrito()[index].cantidad++;
+                }else{
+                    Swal.fire({
+                        position: 'top',
+                        title: 'Sin stock',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            }else{
+                let producto = new zapatilla(element.id,element.marca,element.modelo,element.precio,element.img,element.stock)
+                listaCompra.AddProducto(producto);
+            }
+            // CARGO EL STORAGE
+            cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
+            contItem();
+        })
+    })   
+}
 
 const limpiarModal=()=>{
     bodyCarrito.innerHTML= `<p class="p-size">Carrito vacio</p>`;
@@ -145,7 +190,7 @@ const obtenerStorage=()=>{
 
 }
 
-// selecciona metodo de pago
+// selecciona metodo de pago y consulta el nuevo valor segun el metodo de pago.
 const calcularPago=()=>{
 
     let opcion = document.getElementById("opcion");
@@ -159,52 +204,6 @@ const calcularPago=()=>{
     });
 
 
-}
-
-// consulta al json y carga productos dinamicamente 
-const cargarProductos= async ()=>{
-
-    const response = await fetch("./productos.json");
-    let data= await response.json();
-    
-    data.forEach((element)=>{
-        let allcards=document.getElementById("allcards");
-        
-        allcards.innerHTML+=    `<div class="card col-lg-4 col-12">
-                                <h2>${element.marca} ${element.modelo}</h2>         
-                                <img class="card-img" src="img/${element.img}" alt="zapatilla">
-                                <p class="p-size">$${element.precio}</p>
-                                <button id="btn-zapatilla${element.id}" class="btn">Agregar</button>
-                            </div>`;
-    
-    })
-
-    data.forEach((element)=>{
-        document.getElementById(`btn-zapatilla${element.id}`)?.addEventListener("click",()=>{
-
-            if (listaCompra.GetCarrito().find(zapatilla=>zapatilla.id===element.id)) {
-        
-                let index=listaCompra.GetCarrito().findIndex(zapatilla=>zapatilla.id===element.id);
-
-                if (listaCompra.GetCarrito()[index].cantidad<element.stock) {
-                    listaCompra.GetCarrito()[index].cantidad++;
-                }else{
-                    Swal.fire({
-                        position: 'top',
-                        title: 'Sin stock',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-            }else{
-                let producto = new zapatilla(element.id,element.marca,element.modelo,element.precio,element.img,element.stock)
-                listaCompra.AddProducto(producto);
-            }
-            // CARGO EL STORAGE
-            cargarStorage("carrito",JSON.stringify(listaCompra.GetCarrito()));
-            contItem();
-        })
-    })   
 }
 
 // crea tabla del modal
@@ -267,6 +266,13 @@ const crearModal=(lista,nodo,total)=>{
     
 
 }
+// carga carrito si se hay producto localstorage
+const cargarModal=(lista,nodo,monto)=>{
+    if (lista.length!=0) {
+        crearModal(lista,nodo,monto)
+        calcularPago();
+    }
+};
 // funcion concretar pago
 const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
 
@@ -275,7 +281,7 @@ const botonPagar=()=>document.getElementById("pagar").addEventListener("click",(
     Swal.fire({
         position: 'top',
         icon: 'success',
-        title: 'Compra realizada. Gracias',
+        title: 'Compra realizada. Gracias por confiar',
         showConfirmButton: false,
         timer: 2000
     })
@@ -294,13 +300,7 @@ const agregarBtnCarrito=()=>{
         
     })
 }
-// carga carrito si se hay producto localstorage
-const cargarModal=(lista,nodo,monto)=>{
-    if (lista.length!=0) {
-        crearModal(lista,nodo,monto)
-        calcularPago();
-    }
-};
+
 // agrega los botones de pago y limpiar carrito, cuando hay algo en el carrito
 const agregarBtnModal=()=>{
     
@@ -312,7 +312,7 @@ const agregarBtnModal=()=>{
     btnBorrar("limpiar");
 
 }
-// boton basura. elimina un toda la cantidad de un producto.
+// boton basura. elimina de un click toda la cantidad de un producto.
 const botonBasura=()=>{
 
     listaCompra.GetCarrito().forEach((element) => {
@@ -341,7 +341,7 @@ const botonSumaResta=()=>{
                 listaCompra.GetCarrito()[index].cantidad++;
             }else{
                 Swal.fire({
-                    position: 'top',
+                    position: 'center',
                     title: 'Sin stock',
                     showConfirmButton: false,
                     timer: 1500
@@ -406,22 +406,22 @@ const quitarBtnModal=()=>{
 
 // contador del carrito
 const contItem=()=>{
-    const itemTotal= document.getElementById("item_total");
     let cant=listaCompra.GetCarrito().reduce((acumulador,x)=>acumulador+x.cantidad,0)
     itemTotal.innerHTML=cant;
 }
 const resetItem=()=>{
-    const itemTotal= document.getElementById("item_total");
     itemTotal.innerHTML=0;
 }
 
 //                  ----------------------------Programa-------------------------------------
 
-// Variables globales
+// Variables golobales
 const listaCompra=new Carrito;
 const bodyCarrito=document.getElementById("bodyCarrito");
 const btnModal=document.getElementById("btnModal");
+const itemTotal= document.getElementById("item_total");
 
+// funciones necesarias cuando inicia el programa
 cargarProductos();
 
 obtenerStorage();
