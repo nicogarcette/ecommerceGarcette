@@ -20,8 +20,7 @@
 <body>
     <header class="encabezado">
         <div>
-            <!-- <a href="#"><img class="img-px" src="img/logo-New-Balance.png" alt="logo"></a> -->
-            <h1 class="ezpe">ezpe ba.</h1>
+            <a href="#" class="ezpe">ezpe ba.</a>
         </div>
         <nav class="nav">
             <ul class="lista">
@@ -36,37 +35,34 @@
                 </button>
                 <span id="item_total">0</span>
             </div>
-            
         </nav>
     </header>
-    <main class="cuerpo container-fluid">
-
-        <div class="titulo">
-            <h1 id="title">Temporada FW 2022</h1>
+    <main class="cuerpo">
+        <div class="container-titulo">
+            <h1 class="titulo">Temporada FW 2022</h1>
         </div>
-        <div class="bienvenida">
-            <h2>Zapatillas</h2>
+        <div class="container-fluid">
+            <div class="bienvenida">
+                <h2>Zapatillas</h2>
+            </div>
         </div>
-
-        <section id="temporada" class="row">
-        </section>
-    <!-- Modal -->
+        <!-- cards -->
+        <div class="container-fluid">
+            <div id="allcards" class="row"></div>
+        </div>
+        <!-- Modal -->
         <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel">Carrito</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Carrito</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="bodyCarrito" class="">
+                        <p class="p-size">Carrito vacio</p>
+                    </div>
+                    <div id="btnModal" class="modal-footer"></div>            
                 </div>
-
-                <div id="bodyCarrito" class="">
-                    <p class="p-size">Carrito vacio</p>
-                </div>
-
-                <div id="btnModal" class="modal-footer">
-                    
-                </div>
-            </div>
             </div>
         </div>
     </main>
@@ -90,15 +86,12 @@
             <p>Todos los derechos reservados © 2022 Nicolas garcette</p>
         </div>
     </footer>
-
-    <!--fontAwesone-->
+    
     <script src="https://kit.fontawesome.com/6a02e16f95.js" crossorigin="anonymous"></script>
-    <!-- bots -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- mi script -->
     <script src="./index.js"></script>
 </body>
 </html>
