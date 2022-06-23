@@ -23,6 +23,13 @@ const campos={
     phone:false,
     dni:false
 }
+// const mensajes={
+//     nombre:"nombre incorrecto",
+//     surname:"apellido incorrecto",
+//     email:"El correo solo puede contener letras, numeros, punto y guion bajo",
+//     phone:"Numero incorrecto, solo numeros.",
+//     dni:"Dni incorrecto, solo numeros."
+// }
 
 
 const checkCampos=()=>{return campos.nombre && campos.surname && campos.email && campos.dni && campos.phone};
@@ -43,30 +50,30 @@ form.addEventListener("submit", e=>{
             text: "¡Gracias por confiar!",
             button: false
         }).then(setTimeout(() => {
-            // mercadopago();
+            mercadoPago();
         }, 3000));
     }else{
         console.log("datos incorrectos");
     }
-
-    
 })
 
 
 const valueWrong=(input)=>{
     const padre=input.parentElement.parentElement;
     padre.className="form_grupo-incorrecto";
-    if (input.value==="") {
-       const p=padre.querySelector("p");
-       p.innerText="Este campo es obligatorio.";
-    }
+
+    // const p=padre.querySelector("p");
+    // if (input.value==="") {
+    //    p.innerText="Este campo es obligatorio.";
+    // }else{
+    //     p.innerText=mensaje;
+    // }
 
 }
 
-const valueRight=(input,message)=>{
+const valueRight=(input)=>{
     const padre=input.parentElement.parentElement;
     padre.className="form_grupo-correcto";
-
 }
 
 
@@ -131,3 +138,47 @@ inputs.forEach(input => {
     input.addEventListener(`blur`,()=>validarFormulario(input));    
 });
 
+
+
+const carritoPagar = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+
+
+// consulta api mercadoPago para generar un link de pago
+const mercadoPago = async ()=>{
+    const carritoPagarToMap = carritoPagar.map(item => {
+        let newItem =     
+        {
+            title: item.marca,
+            description: "",
+            picture_url: item.img,
+            category_id: item.id,
+            quantity: item.cantidad,
+            currency_id: "ARS",
+            unit_price: item.precio
+        }
+        return newItem;
+    });
+
+    try{
+        const response = await fetch("https://api.mercadopago.com/checkout/preferences",{
+            method:"POST",
+            headers:{
+                Authorization: "Bearer TEST-4610849640661972-061315-aea9319bfd6abb93cb6edda4b542dc98-709984540"
+            },
+            body: JSON.stringify({
+                items:carritoPagarToMap,
+                back_urls: {
+                    "success": "http://127.0.0.1:5500/index.html",
+                    "failure": "http://127.0.0.1:5500/index.html",
+                    "pending": "http://127.0.0.1:5500/index.html"
+                },
+                auto_return: "approved"
+            })
+
+        });
+        const data= await response.json();
+        window.open(data.init_point, "_self")
+    }catch(error){
+        console.log(error);
+    }
+}
