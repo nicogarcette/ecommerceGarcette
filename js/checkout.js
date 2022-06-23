@@ -7,7 +7,10 @@ const surname=document.getElementById("surname");
 const email=document.querySelector("#email");
 const phone=document.getElementById("phone");
 const dni=document.getElementById("dni");
-// const error=document.getElementById("error");
+const formError= document.getElementById("form_mensajeError");
+
+
+
 
 const expresiones = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -23,14 +26,6 @@ const campos={
     phone:false,
     dni:false
 }
-// const mensajes={
-//     nombre:"nombre incorrecto",
-//     surname:"apellido incorrecto",
-//     email:"El correo solo puede contener letras, numeros, punto y guion bajo",
-//     phone:"Numero incorrecto, solo numeros.",
-//     dni:"Dni incorrecto, solo numeros."
-// }
-
 
 const checkCampos=()=>{return campos.nombre && campos.surname && campos.email && campos.dni && campos.phone};
 
@@ -51,11 +46,14 @@ form.addEventListener("submit", e=>{
             button: false
         }).then(setTimeout(() => {
             mercadoPago();
+            localStorage.removeItem("carrito");
+
         }, 3000));
     }else{
-        console.log("datos incorrectos");
+        formError.classList.add("form_mensajeError-active");
     }
 })
+
 
 
 const valueWrong=(input)=>{
@@ -107,7 +105,7 @@ const validarPhone=()=>{
 }
 
 const validarFormulario=(input)=>{
-
+    
     switch (input) {
         case nombre:
             campos.nombre=validarCampo(nombre,expresiones.nombre,campos.nombre);
@@ -130,6 +128,9 @@ const validarFormulario=(input)=>{
         default:
             break;
     }
+    if(checkCampos()){
+        formError.classList.remove("form_mensajeError-active");
+    }
 
 }
 
@@ -141,6 +142,7 @@ inputs.forEach(input => {
 
 
 const carritoPagar = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
+
 
 
 // consulta api mercadoPago para generar un link de pago

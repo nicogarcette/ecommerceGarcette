@@ -455,12 +455,12 @@ table{
 }
 
 
-.form_mensaje,
+.form_mensajeError,
 .form_grupo-btn{
     grid-column: span 2;
 }
 
-.form_mensaje{
+.form_mensajeError{
     height: 45px;
     line-height: 45px;
     padding: 0 15px;
@@ -469,7 +469,7 @@ table{
     display: none;
 }
 
-.form_mensaje-active{
+.form_mensajeError-active{
     display: block;
 }
 

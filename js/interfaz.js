@@ -96,16 +96,15 @@ const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>{
 // funcion concretar pago.
 const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
 
-    listaCompra.LimpiarCarrito();
-    
-    Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Compra realizada. Gracias por confiar',
-        showConfirmButton: false,
-        timer: 2000
-    })
 
+    swal({
+        title: "YENDO A PAGAR",
+        text: "¡COMPRAAAAAAA",
+        button: false
+    }).then(setTimeout(() => {
+        location.href="../checkout.html";
+    }, 1000));
+  
 })
 
 // funcionalidad al boton carrito. 
