@@ -180,4 +180,7 @@ const calcularPago=()=>{
 
 }
 
+// ubicacion
+cargarStorage("location",window.location.href);
+
 

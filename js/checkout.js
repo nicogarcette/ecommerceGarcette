@@ -135,6 +135,8 @@ checkoutFormulario=()=>{
 // consulta si localstorage contiene un carrito.
 const carritoPagar = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
 
+const myLocation= localStorage.getItem("location") ? localStorage.getItem("location") : "";
+
 // consulta api mercadoPago para generar un link de pago
 const mercadoPago = async ()=>{
     const carritoPagarToMap = carritoPagar.map(item => {
@@ -160,9 +162,9 @@ const mercadoPago = async ()=>{
             body: JSON.stringify({
                 items:carritoPagarToMap,
                 back_urls: {
-                    "success": "http://127.0.0.1:5500/index.html",
-                    "failure": "http://127.0.0.1:5500/index.html",
-                    "pending": "http://127.0.0.1:5500/index.html"
+                    "success": myLocation,
+                    "failure": myLocation,
+                    "pending": myLocation
                 },
                 auto_return: "approved"
             })

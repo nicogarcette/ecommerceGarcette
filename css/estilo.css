@@ -393,8 +393,6 @@ table{
 .checkout{
     height: 800px;
     background: #DDDDDD;
-
-
 }
 .checkout_titulo{
     margin-top:8rem;
@@ -527,15 +525,18 @@ table{
 }
 
 /* mediaq */
- @media screen and  (max-width:800px ){
-
+@media screen and  (max-width:800px ){
+    .checkout{
+        height: 850px;
+    }
     .form{
         grid-template-columns: 1fr;
         width: 80%;
         margin: auto;
     }
-    .form_mensaje,
+    .form_mensajeError,
     .form_grupo-btn{
     grid-column:  1;
+    padding: 0;
 }
- }
+}

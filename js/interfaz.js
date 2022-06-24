@@ -234,7 +234,7 @@ const resetItem=()=>{
 
 //                  ----------------------------Programa-------------------------------------
 
-// Variables golobales
+// Variables globales
 const listaCompra=new Carrito;
 const bodyCarrito=document.getElementById("bodyCarrito");
 const btnModal=document.getElementById("btnModal");
