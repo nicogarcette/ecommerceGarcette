@@ -102,7 +102,7 @@ const botonPagar=()=>document.getElementById("pagar").addEventListener("click",(
         text: "¡COMPRAAAAAAA",
         button: false
     }).then(setTimeout(() => {
-        location.href="../checkout.html";
+        location.href="./checkout.html";
     }, 1000));
   
 })

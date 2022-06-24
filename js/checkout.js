@@ -1,7 +1,6 @@
+// variables 
 const form=document.getElementById("form");
 const inputs=[...document.querySelectorAll(".form_input")]; 
-
-
 const nombre=document.getElementById("nombre");
 const surname=document.getElementById("surname");
 const email=document.querySelector("#email");
@@ -9,9 +8,7 @@ const phone=document.getElementById("phone");
 const dni=document.getElementById("dni");
 const formError= document.getElementById("form_mensajeError");
 
-
-
-
+// objeto con expreciones regulares para validar datos
 const expresiones = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -26,47 +23,13 @@ const campos={
     phone:false,
     dni:false
 }
-
+// funcion que retorna bool. Para verificar que todos los campos esten validados.
 const checkCampos=()=>{return campos.nombre && campos.surname && campos.email && campos.dni && campos.phone};
 
-// Agregar un novalidateatributo al elemento del formulario evita la validación nativa en los elementos del formulario (si se aplica), 
-// lo que permite que JavaScript administre todas las validaciones sin obstrucciones.
-form.noValidate=true;
-form.addEventListener("submit", e=>{
-    e.preventDefault();
-
-    inputs.forEach(input => {
-        validarFormulario(input);   
-    });
-    
-    if (checkCampos()) {
-        swal({
-            title: "Te estamos redirigiendo a Mercado Pago",
-            text: "¡Gracias por confiar!",
-            button: false
-        }).then(setTimeout(() => {
-            mercadoPago();
-            localStorage.removeItem("carrito");
-
-        }, 3000));
-    }else{
-        formError.classList.add("form_mensajeError-active");
-    }
-})
-
-
-
+// agrega class para valor si es correcto o incorrecto. selecciona tag abuelo del input para agregar la clase correspondiente.
 const valueWrong=(input)=>{
     const padre=input.parentElement.parentElement;
     padre.className="form_grupo-incorrecto";
-
-    // const p=padre.querySelector("p");
-    // if (input.value==="") {
-    //    p.innerText="Este campo es obligatorio.";
-    // }else{
-    //     p.innerText=mensaje;
-    // }
-
 }
 
 const valueRight=(input)=>{
@@ -74,10 +37,9 @@ const valueRight=(input)=>{
     padre.className="form_grupo-correcto";
 }
 
-
+// valida los campos retornando un bool.
 const validarCampo=(input,expresion)=>{
 
-    
     if (input.value==="") {
         valueWrong(input);
         return false;
@@ -104,6 +66,7 @@ const validarPhone=()=>{
     }
 }
 
+// selecciona el input que corresponda y lo valida.
 const validarFormulario=(input)=>{
     
     switch (input) {
@@ -134,16 +97,43 @@ const validarFormulario=(input)=>{
 
 }
 
-inputs.forEach(input => {
-    input.addEventListener(`keyup`,()=>validarFormulario(input));
-    input.addEventListener(`blur`,()=>validarFormulario(input));    
-});
+// funcion principal. eschucha evento submit, si esta validado el formulario ejecuta para pagar con mp.
+checkoutFormulario=()=>{
+    // Agregar un novalidateatributo al elemento del formulario evita la validación nativa en los elementos del formulario (si se aplica), 
+    // lo que permite que JavaScript administre todas las validaciones sin obstrucciones.
+    form.noValidate=true;
 
+    form.addEventListener("submit", e=>{
 
+        e.preventDefault();
 
+        inputs.forEach(input => {
+            validarFormulario(input);   
+        });
+        
+        if (checkCampos()) {
+            swal({
+                title: "Te estamos redirigiendo a Mercado Pago",
+                text: "¡Gracias por confiar!",
+                button: false
+            }).then(setTimeout(() => {
+                mercadoPago();
+                localStorage.removeItem("carrito");
+
+            }, 3000));
+        }else{
+            formError.classList.add("form_mensajeError-active");
+        }
+    })
+
+    inputs.forEach(input => {
+        input.addEventListener(`keyup`,()=>validarFormulario(input));
+        input.addEventListener(`blur`,()=>validarFormulario(input));    
+    });
+}
+
+// consulta si localstorage contiene un carrito.
 const carritoPagar = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
-
-
 
 // consulta api mercadoPago para generar un link de pago
 const mercadoPago = async ()=>{
@@ -184,3 +174,6 @@ const mercadoPago = async ()=>{
         console.log(error);
     }
 }
+
+// Main
+checkoutFormulario();
