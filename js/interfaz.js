@@ -38,7 +38,17 @@ const crearModal=(lista,nodo,total)=>{
                     <td></td>
                 </tr>
         </table>
-        <form id="formulario" class="">
+        `
+
+    nodo.innerHTML=acumulador;
+    agregarBtnModal();
+    botonBasura();
+    botonSumaResta();
+    
+
+}
+// formulario de metodo de pago lo saco por el momento.
+{/* <form id="formulario" class="">
                     <p>Elija metodo de pago:
                     <select id="opcion" name="pago">
                         <option></option>
@@ -49,20 +59,13 @@ const crearModal=(lista,nodo,total)=>{
                     </p>
                 </form>
                 <div id="total">
-                </div>`
+                </div> */}
 
-    nodo.innerHTML=acumulador;
-    agregarBtnModal();
-    botonBasura();
-    botonSumaResta();
-    
-
-}
 // carga carrito si se hay producto localstorage
 const cargarModal=(lista,nodo,monto)=>{
     if (lista.length!=0) {
         crearModal(lista,nodo,monto)
-        calcularPago();
+        // calcularPago();
     }
 };
 const limpiarModal=()=>{

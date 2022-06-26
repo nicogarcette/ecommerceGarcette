@@ -198,7 +198,6 @@ header .cart span{
     border: none;
     height: 1px;
     background-color: #7a7a7a;
-
 }
 
 /* asistencia */
@@ -400,6 +399,11 @@ table{
 
 
 }
+.checkout_contenido{
+    display: flex;
+    justify-content: space-around;
+    height: auto;
+}
 
 .form{
     width: 40%;
@@ -539,4 +543,49 @@ table{
     grid-column:  1;
     padding: 0;
 }
+}
+
+
+
+/* cart table */
+.checkout_card{
+    width: 30%;
+    
+}
+.checkout_card-contenido{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 20px;
+    height: auto;
+    transition: 0.4s all linear;
+}
+.checkout_card-contenido:hover{
+    transform:scale(1.05) ;
+    box-shadow: rgba(99, 99, 99, 0.2);
+}
+
+.checkout_table-product,
+.checkout_table-precio{
+    width: 100%;
+}
+
+.product-img{
+    width: 200px;
+}
+
+.table-subtotal{
+    width: 80%;
+    font-size: 1.2rem;
+    border-top: 1px solid rgba(190, 187, 180, 0.738);
+}
+.table-total{
+    font-size: 2rem;
+}
+.t1{
+    width: 90%;
+    text-align: start;
+    padding-left: 1.5rem;
 }

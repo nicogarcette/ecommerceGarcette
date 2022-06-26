@@ -114,35 +114,35 @@ const cargarProductos= async ()=>{
 }
 
 
-// consulta metodo de pago
-function metodoPago(precio,metodo) {
+// // consulta metodo de pago
+// function metodoPago(precio,metodo) {
 
-    let total;
-    let mensaje= document.getElementById("total");
-    switch (metodo) {
-        case "credito":
-            total=Math.round(precio*1.35);
-            mensaje.innerHTML=`<p class="p-size">Al pagar con credito se le hace un recargo del 35%. Precio final: $${total}</p>`
-            break;
-        case "efectivo":
-            total=Math.round((precio-(precio*0.10)));
-            mensaje.innerHTML=`<p class="p-size">Al pagar en efectivo se le hace un descuento del 10%. Precio final: $${total}</p>`;
-            break;
-        case "debito":
-            total=Math.round((precio*1.10));
-            mensaje.innerHTML=`<p class="p-size">Al pagar con debito se le hace un recargo del 10%. Precio final: $${total}</p>`;
-            break;
-        default:
-            Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Metodo de pago incorrecto!',
-                showConfirmButton: false,
-                timer: 1500
-              })
-            break;
-    }
-}
+//     let total;
+//     let mensaje= document.getElementById("total");
+//     switch (metodo) {
+//         case "credito":
+//             total=Math.round(precio*1.35);
+//             mensaje.innerHTML=`<p class="p-size">Al pagar con credito se le hace un recargo del 35%. Precio final: $${total}</p>`
+//             break;
+//         case "efectivo":
+//             total=Math.round((precio-(precio*0.10)));
+//             mensaje.innerHTML=`<p class="p-size">Al pagar en efectivo se le hace un descuento del 10%. Precio final: $${total}</p>`;
+//             break;
+//         case "debito":
+//             total=Math.round((precio*1.10));
+//             mensaje.innerHTML=`<p class="p-size">Al pagar con debito se le hace un recargo del 10%. Precio final: $${total}</p>`;
+//             break;
+//         default:
+//             Swal.fire({
+//                 position: 'center',
+//                 icon: 'error',
+//                 title: 'Metodo de pago incorrecto!',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//               })
+//             break;
+//     }
+// }
 
 
 // cargar al localStore
@@ -164,21 +164,21 @@ const obtenerStorage=()=>{
 
 }
 
-// selecciona metodo de pago y consulta el nuevo valor segun el metodo de pago.
-const calcularPago=()=>{
+// // selecciona metodo de pago y consulta el nuevo valor segun el metodo de pago.
+// const calcularPago=()=>{
 
-    let opcion = document.getElementById("opcion");
-    opcion.addEventListener("change",(opc)=>{
+//     let opcion = document.getElementById("opcion");
+//     opcion.addEventListener("change",(opc)=>{
 
-        let metodo=opc.target.value;
+//         let metodo=opc.target.value;
      
-        let monto=listaCompra.Subtotal();
+//         let monto=listaCompra.Subtotal();
     
-        metodoPago(Math.floor(monto),metodo); 
-    });
+//         metodoPago(Math.floor(monto),metodo); 
+//     });
 
 
-}
+// }
 
 // ubicacion
 cargarStorage("location",window.location.href);
