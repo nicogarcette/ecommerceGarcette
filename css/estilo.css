@@ -21,12 +21,10 @@ header{
 main{
     grid-area: main;
 }
-
 footer{
     grid-area: footer;
     background-color: #DBE2EF;
 }
-
 /* HEADER */
 .encabezado{
     display: flex;
@@ -161,8 +159,7 @@ header .cart span{
     margin-top: 5px;    
 }
 
-
-/* footer */
+/* ----footer---- */
 .ft{
     padding: 10px 0;
 
@@ -221,7 +218,6 @@ span{
     font-weight: bold;
 }
 
-
 /* talles */
 
 .talles{
@@ -239,7 +235,6 @@ span{
     transition: all .5s ease;
     
 }
-
 
 /* login */
 .formu{
@@ -277,7 +272,6 @@ span{
     font-size: 25px;
     border-radius: 5px;
     text-decoration: none
-
 }
 
 input{
@@ -296,14 +290,12 @@ table{
     color: #B20600;
 }
 
-
 .bienvenida{
     padding-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 
 #formulario{
     display: flex;
@@ -317,62 +309,10 @@ table{
     margin:2rem auto ;
 }
 
-
 .modal-img{
     width: 100%;
 }
-
-
-@media screen and (max-width:768px){
-    .container-titulo{
-        height: 275px;
-    }
-    .titulo{
-        right: 4rem;
-        top: 13rem;
-        margin-top: 4rem;
-    }
-    .encabezado{
-        height: 70px;
-    }
-   
-    .ezpe{
-        font-size: 1.4rem;
-        margin: 0.5rem;
-        text-align: start;
-    }
-    #allcards{
-        padding: 0px 4rem;
-
-    }
-    .card-img{
-        width: 100%;
-    }
-    .bienvenida{
-        padding-top: 2rem;
-    }
-
-    
-}
-
-@media screen and (min-width:1024px){
-    #allcards{
-        margin: 0 6rem;
-    }
-    .titulo{
-        padding-top: 10rem;
-        
-    }
-
-    .card-img{
-        width: 300px;
-    }
-
-
-    
-}
-
-
+/* -----boton basura----- */
 .trash{
     font-size: 25px;
     color: #B20600;
@@ -386,9 +326,12 @@ table{
     opacity:.5;
     color: #B20600;
 }
+/* cierre boton basura */
 
 
-/* CHECKOUT STYLE */
+
+/* -------------CHECKOUT -------------*/
+/* formulario */
 .checkout{
     height: 800px;
     background: #DDDDDD;
@@ -528,29 +471,10 @@ table{
     opacity: 1;
 }
 
-/* mediaq */
-@media screen and  (max-width:800px ){
-    .checkout{
-        height: 850px;
-    }
-    .form{
-        grid-template-columns: 1fr;
-        width: 80%;
-        margin: auto;
-    }
-    .form_mensajeError,
-    .form_grupo-btn{
-    grid-column:  1;
-    padding: 0;
-}
-}
 
-
-
-/* cart table */
+/*                             --------------checkout card------------ */
 .checkout_card{
-    width: 30%;
-    
+    width: 30%; 
 }
 .checkout_card-contenido{
     display: flex;
@@ -572,8 +496,21 @@ table{
     width: 100%;
 }
 
+/* scroll en la tabla  */
+thead, tbody { display: block; }
+
+tbody {
+    max-height: 310px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+
+}
+.t2{
+   width: 45%; 
+}
+
 .product-img{
-    width: 200px;
+    width: 90%;
 }
 
 .table-subtotal{
@@ -588,4 +525,107 @@ table{
     width: 90%;
     text-align: start;
     padding-left: 1.5rem;
+}
+
+
+/* vista movile */
+@media screen and (max-width:768px){
+    /* estilo index*/
+    .container-titulo{
+        height: 275px;
+    }
+    .titulo{
+        right: 4rem;
+        top: 13rem;
+        margin-top: 4rem;
+    }
+    .encabezado{
+        height: 70px;
+    }
+   
+    .ezpe{
+        font-size: 1.4rem;
+        margin: 0.5rem;
+        text-align: start;
+    }
+    #allcards{
+        padding: 0px 4rem;
+
+    }
+    .card-img{
+        width: 100%;
+    }
+    .bienvenida{
+        padding-top: 2rem;
+    }
+    /* FIN index */
+
+    /* CHECKOUT  */
+    /* form */
+    .checkout{
+        height:auto;
+    }
+    .checkout_titulo{
+        margin-top: 5.5rem;
+        margin-bottom: 1.5rem;
+
+    }
+    .form{
+        grid-template-columns: 1fr;
+        width: 80%;
+        margin: auto;
+        padding-bottom: 2rem;
+    }
+    .form_mensajeError,
+    .form_grupo-btn{
+        grid-column:  1;
+        padding: 0;
+    }
+    /* fin form */
+
+    /* card */
+
+    .checkout_contenido{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .checkout_card{
+        width: 80%; 
+        margin-bottom: 1rem;
+    }
+
+    .product-img{
+        width: 100%;
+    }
+    /* FIN CHECKOUT */
+}
+
+@media screen and (min-width: 769px) and (max-width: 1199px) {
+    .checkout_card{
+        width: 40%;
+        margin-top: 2.5rem;
+    }
+    .card-img{
+        width: 300px;
+    }
+}
+
+/* vista desktop */
+@media screen and (min-width:1200px){
+    /* index */
+    #allcards{
+        margin: 0 6rem;
+    }
+    .titulo{
+        padding-top: 10rem;
+        
+    }
+
+    .card-img{
+        width: 300px;
+    }
+    /* fin index */
+    .checkout_card{
+        margin-top: 1.5rem;
+    }
 }

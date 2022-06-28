@@ -132,9 +132,6 @@ checkoutFormulario=()=>{
     });
 }
 
-// consulta si localstorage contiene un carrito.
-const carritoPagar = localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : [];
-
 const myLocation= localStorage.getItem("location") ? localStorage.getItem("location") : "";
 
 // consulta api mercadoPago para generar un link de pago
