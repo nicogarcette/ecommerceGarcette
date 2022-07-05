@@ -47,19 +47,6 @@ const crearModal=(lista,nodo,total)=>{
     
 
 }
-// formulario de metodo de pago lo saco por el momento.
-{/* <form id="formulario" class="">
-                    <p>Elija metodo de pago:
-                    <select id="opcion" name="pago">
-                        <option></option>
-                        <option value="efectivo">efectivo</option>
-                        <option value="credito">credito</option>
-                        <option value="debito">debito</option>
-                    </select>
-                    </p>
-                </form>
-                <div id="total">
-                </div> */}
 
 // carga carrito si se hay producto localstorage
 const cargarModal=(lista,nodo,monto)=>{
@@ -99,15 +86,11 @@ const btnBorrar=(id)=>document.getElementById(id).addEventListener("click",()=>{
 // funcion concretar pago.
 const botonPagar=()=>document.getElementById("pagar").addEventListener("click",()=>{
 
-
-    swal({
-        title: "YENDO A PAGAR",
-        text: "¡COMPRAAAAAAA",
-        button: false
-    }).then(setTimeout(() => {
+    const loader=document.getElementById("loader");
+    loader.classList.remove("loader2");
+    setTimeout(() => {
         location.href="./checkout.html";
-    }, 1000));
-  
+    }, 2000);
 })
 
 // funcionalidad al boton carrito. 
@@ -118,8 +101,6 @@ const agregarBtnCarrito=()=>{
     botonCarrito.addEventListener("click",()=>{
 
         cargarModal(listaCompra.GetCarrito(),bodyCarrito,listaCompra.Subtotal());
-        
-        
     })
 }
 

@@ -112,15 +112,12 @@ checkoutFormulario=()=>{
         });
         
         if (checkCampos()) {
-            swal({
-                title: "Te estamos redirigiendo a Mercado Pago",
-                text: "¡Gracias por confiar!",
-                button: false
-            }).then(setTimeout(() => {
+            const loader=document.getElementById("loader");
+            loader.classList.remove("loader2");
+            setTimeout(() => {
                 mercadoPago();
                 localStorage.removeItem("carrito");
-
-            }, 3000));
+            }, 3000);
         }else{
             formError.classList.add("form_mensajeError-active");
         }
